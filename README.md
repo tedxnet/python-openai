@@ -25,7 +25,7 @@ python setup.py install
 
 ### Optional dependencies
 
-Install dependencies for [`openai.embeddings_utils`](openai/embeddings_utils.py):
+Install dependencies for [`openaipro.embeddings_utils`](openai/embeddings_utils.py):
 
 ```sh
 pip install openai[embeddings]
@@ -51,20 +51,20 @@ The library needs to be configured with your account's secret key which is avail
 export OPENAI_API_KEY='sk-...'
 ```
 
-Or set `openai.api_key` to its value:
+Or set `openaipro.api_key` to its value:
 
 ```python
 import openai
-openai.api_key = "sk-..."
+openaipro.api_key = "sk-..."
 
 # list engines
-engines = openai.Engine.list()
+engines = openaipro.Engine.list()
 
 # print the first engine's id
 print(engines.data[0].id)
 
 # create a completion
-completion = openai.Completion.create(engine="ada", prompt="Hello world")
+completion = openaipro.Completion.create(engine="ada", prompt="Hello world")
 
 # print the completion
 print(completion.choices[0].text)
@@ -72,7 +72,7 @@ print(completion.choices[0].text)
 
 
 ### Params
-All endpoints have a `.create` method that supports a `request_timeout` param.  This param takes a `Union[float, Tuple[float, float]]` and will raise an `openai.error.TimeoutError` error if the request exceeds that time in seconds (See: https://requests.readthedocs.io/en/latest/user/quickstart/#timeouts).
+All endpoints have a `.create` method that supports a `request_timeout` param.  This param takes a `Union[float, Tuple[float, float]]` and will raise an `openaipro.error.TimeoutError` error if the request exceeds that time in seconds (See: https://requests.readthedocs.io/en/latest/user/quickstart/#timeouts).
 
 ### Microsoft Azure Endpoints
 
@@ -81,13 +81,13 @@ In addition, the deployment name must be passed as the engine parameter.
 
 ```python
 import openai
-openai.api_type = "azure"
-openai.api_key = "..."
-openai.api_base = "https://example-endpoint.openai.azure.com"
-openai.api_version = "2022-12-01"
+openaipro.api_type = "azure"
+openaipro.api_key = "..."
+openaipro.api_base = "https://example-endpoint.openaipro.azure.com"
+openaipro.api_version = "2022-12-01"
 
 # create a completion
-completion = openai.Completion.create(engine="deployment-name", prompt="Hello world")
+completion = openaipro.Completion.create(engine="deployment-name", prompt="Hello world")
 
 # print the completion
 print(completion.choices[0].text)
@@ -113,10 +113,10 @@ default_credential = DefaultAzureCredential()
 token = default_credential.get_token("https://cognitiveservices.azure.com/.default")
 
 # Setup parameters
-openai.api_type = "azure_ad"
-openai.api_key = token.token
-openai.api_base = "https://example-endpoint.openai.azure.com/"
-openai.api_version = "2022-12-01"
+openaipro.api_type = "azure_ad"
+openaipro.api_key = token.token
+openaipro.api_base = "https://example-endpoint.openaipro.azure.com/"
+openaipro.api_version = "2022-12-01"
 
 # ...
 ```
@@ -160,7 +160,7 @@ To get an embedding for a text string, you can use the embeddings method as foll
 
 ```python
 import openai
-openai.api_key = "sk-..."  # supply your API key however you choose
+openaipro.api_key = "sk-..."  # supply your API key however you choose
 
 # choose text to embed
 text_string = "sample text"
@@ -169,7 +169,7 @@ text_string = "sample text"
 model_id = "text-similarity-davinci-001"
 
 # compute the embedding of the text
-embedding = openai.Embedding.create(input=text_string, engine=model_id)['data'][0]['embedding']
+embedding = openaipro.Embedding.create(input=text_string, engine=model_id)['data'][0]['embedding']
 ```
 
 An example of how to call the embeddings method is shown in this [get embeddings notebook](https://github.com/openai/openai-cookbook/blob/main/examples/Get_embeddings.ipynb).
@@ -212,9 +212,9 @@ OpenAI provides a Moderation endpoint that can be used to check whether content 
 
 ```python
 import openai
-openai.api_key = "sk-..."  # supply your API key however you choose
+openaipro.api_key = "sk-..."  # supply your API key however you choose
 
-moderation_resp = openai.Moderation.create(input="Here is some perfectly innocuous text that follows all OpenAI content policies.")
+moderation_resp = openaipro.Moderation.create(input="Here is some perfectly innocuous text that follows all OpenAI content policies.")
 ```
 
 See the [moderation guide](https://beta.openai.com/docs/guides/moderation) for more details.
@@ -223,9 +223,9 @@ See the [moderation guide](https://beta.openai.com/docs/guides/moderation) for m
 
 ```python
 import openai
-openai.api_key = "sk-..."  # supply your API key however you choose
+openaipro.api_key = "sk-..."  # supply your API key however you choose
 
-image_resp = openai.Image.create(prompt="two dogs playing chess, oil painting", n=4, size="512x512")
+image_resp = openaipro.Image.create(prompt="two dogs playing chess, oil painting", n=4, size="512x512")
 
 ```
 
@@ -235,10 +235,10 @@ Async support is available in the API by prepending `a` to a network-bound metho
 
 ```python
 import openai
-openai.api_key = "sk-..."  # supply your API key however you choose
+openaipro.api_key = "sk-..."  # supply your API key however you choose
 
 async def create_completion():
-    completion_resp = await openai.Completion.acreate(prompt="This is a test", engine="davinci")
+    completion_resp = await openaipro.Completion.acreate(prompt="This is a test", engine="davinci")
 
 ```
 
@@ -250,9 +250,9 @@ of your program/event loop:
 import openai
 from aiohttp import ClientSession
 
-openai.aiosession.set(ClientSession())
+openaipro.aiosession.set(ClientSession())
 # At the end of your program, close the http session
-await openai.aiosession.get().close()
+await openaipro.aiosession.get().close()
 ```
 
 See the [usage guide](https://beta.openai.com/docs/guides/images) for more details.
